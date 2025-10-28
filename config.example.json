@@ -1,0 +1,15 @@
+{
+  "stocks": [
+    "600000",
+    "000001",
+    "AAPL"
+  ],
+  "refresh_interval": 5000,
+  "window_opacity": 0.9,
+  "window_width": 300,
+  "window_height": 200,
+  "window_x": 100,
+  "window_y": 100,
+  "always_on_top": true,
+  "font_size": 12
+}
