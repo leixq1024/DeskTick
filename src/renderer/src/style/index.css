@@ -1,0 +1,55 @@
+html,
+body,
+#app {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(33, 35, 37, 0.9);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.container-header {
+  height: 32px;
+  line-height: 32px;
+  color: #fdffff;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-bottom: 1px #acabab50 solid;
+  padding: 6px 24px 6px 24px;
+  -webkit-app-drag: drag;
+}
+.custom-list {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  margin-top: 12px;
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+.custom-item {
+  position: relative;
+  height: 68px;
+  width: 100%;
+  &:not(:last-child) {
+    border-bottom: 2px solid #35373b;
+  }
+}
+.bottom-menu {
+  position: relative;
+  height: 48px;
+  width: 100%;
+  background: #000;
+  border-top: 1px solid #35373b;
+}

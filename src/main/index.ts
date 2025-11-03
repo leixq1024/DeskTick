@@ -1,26 +1,40 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
+import { getFundInfo } from '../renderer/src/api/request.ts'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 400,
+    height: 600,
     show: false,
     autoHideMenuBar: true,
+    frame: false,
+    x: 24,
+    y: 24,
+    transparent: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
-
+  mainWindow.webContents.openDevTools()
+  // 窗口置顶
+  mainWindow.setAlwaysOnTop(true, 'screen-saver')
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
-
+  // 无边框拖拽
+  ipcMain.on('custom-adsorption', (_event, res) => {
+    mainWindow.setPosition(res.appX, res.appY)
+  })
+  // 添加基金数据请求处理
+  ipcMain.handle('get-fund-data', async (_event, fundCode) => {
+    return getFundInfo(fundCode)
+  })
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
@@ -48,9 +62,6 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
